@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alquiler de Películas</title>
+</head>
+<body>
+    <h1>Alquiler de Películas</h1>
+
+    <button onclick="alquilarPelicula()">Alquilar Película</button>
+
+    <div id="peliculas-disponibles">
+        <h2>Películas Disponibles</h2>
+        <ul id="peliculas-lista">
+            <li>Matrix</li>
+            <li>El Padrino</li>
+            <li>El Señor de los Anillos</li>
+        </ul>
+    </div>
+
+    <div id="reservas">
+        <h2>Películas Reservadas</h2>
+        <ul id="reservas-lista">
+            <!-- Las reservas se agregarán aquí dinámicamente -->
+        </ul>
+    </div>
+
+    <div id="total-alquiler">
+        <h2>Total del Alquiler</h2>
+        <p id="total-amount">$0</p>
+    </div>
+
+    <script>
+        const peliculasDisponibles = ["Matrix", "El Padrino", "El Señor de los Anillos"];
+        const reservas = [];
+        let total = 0;
+
+        function alquilarPelicula() {
+            const pelicula = prompt("Ingrese el nombre de la película que desea alquilar:");
+
+            if (pelicula) {
+                if (peliculasDisponibles.includes(pelicula)) {
+                    const costo = 5; // Costo fijo de alquiler
+                    total += costo;
+                    alert(`¡Ha alquilado "${pelicula}" por $${costo}!`);
+                    actualizarTotal();
+                    reservas.push(pelicula);
+                    actualizarReservas();
+                } else {
+                    alert("La película no está disponible.");
+                }
+            }
+        }
+
+        function actualizarTotal() {
+            document.getElementById("total-amount").textContent = `$${total}`;
+        }
+
+        function actualizarReservas() {
+            const reservasLista = document.getElementById("reservas-lista");
+            reservasLista.innerHTML = "";
+
+            reservas.forEach(pelicula => {
+                const li = document.createElement("li");
+                li.textContent = pelicula;
+                reservasLista.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
